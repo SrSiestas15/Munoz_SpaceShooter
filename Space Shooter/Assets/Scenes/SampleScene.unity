@@ -318,8 +318,9 @@ MonoBehaviour:
   - 180
   - 270
   - 360
-  newPos: {x: 5, y: 5, z: 0}
-  radius: 3
+  newPos: {x: 1, y: 1, z: 0}
+  radius: 2
+  timeChange: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

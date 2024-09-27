@@ -18,6 +18,10 @@ public class TrigExcercise : MonoBehaviour
         angleNum = 0;
         transform.localScale *= radius;
         transform.position = newPos;
+
+        Debug.Log("Mathf.Cos(45): " + Mathf.Cos(45 * Mathf.Deg2Rad));
+        Debug.Log("Mathf.Cos(-45): " + Mathf.Cos(-45 * Mathf.Deg2Rad));
+        Debug.Log("Mathf.ACos(45): " + Mathf.Acos(45) * Mathf.Rad2Deg);
     }
 
     // Update is called once per frame
@@ -29,7 +33,6 @@ public class TrigExcercise : MonoBehaviour
         Debug.DrawLine(newPos, anglePosition * radius + newPos, Color.red);
         if (timer >= timeChange)
         {
-            Debug.Log(anglePosition);
             if (angleNum == angleList.Count-1)
             {
                 angleNum = 0;
