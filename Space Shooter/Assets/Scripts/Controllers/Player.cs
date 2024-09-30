@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -18,20 +15,21 @@ public class Player : MonoBehaviour
 
     public float acceleration = 1f;
 
+    public float radius;
+    public float numOfPoints;
+    float indAngle;
+    Vector3 tempRadarPoint1;
+    Vector3 tempRadarPoint2;
+    Color radarColor;
+
     public Vector3 velocity;
 
     private void Start()
     {
         acceleration = targetSpeed / timeToReachTargetSpeed;
-        
-        /*
-        List<string> words = new List<string>();
-        words.Add("Dog");
-        words.Add("Cat");
-        words.Add("Log");
-        words.Insert(1, "Rat");
-        words.Remove("Dog");
-        Debug.Log("Index of cat is: " + words.IndexOf("Cat")); */
+
+        indAngle = 360 / numOfPoints;
+        Debug.Log(indAngle);
     }
 
     void PlayerMovement()
@@ -85,11 +83,27 @@ public class Player : MonoBehaviour
     void Update()
     {
         testTimer += Time.deltaTime;
-        if (velocity.magnitude <= 0)
-        {
-            UnityEngine.Debug.Log("At " + testTimer + " seconds, the ship fully stopped");
-        }
         PlayerMovement();
+        EnemyRadar(radius, (int) numOfPoints);
+    }
+
+    public void EnemyRadar(float radius, int circlePoints)
+    {
+        Vector3 playerToEnemy = transform.position - enemyTransform.position;
+        if (playerToEnemy.magnitude < radius) 
+        {
+            radarColor = Color.red;
+        } else radarColor = Color.green;
+
+        for (int i = 0; i < circlePoints; i++)
+        {
+            tempRadarPoint1.x = Mathf.Cos(indAngle * i * Mathf.Deg2Rad);
+            tempRadarPoint1.y = Mathf.Sin(indAngle * i * Mathf.Deg2Rad);
+            tempRadarPoint2.x = Mathf.Cos(indAngle * (i+1) * Mathf.Deg2Rad);
+            tempRadarPoint2.y = Mathf.Sin(indAngle * (i+1) * Mathf.Deg2Rad);
+            Debug.DrawLine(transform.position + tempRadarPoint1 * radius, transform.position +tempRadarPoint2 *radius, radarColor);
+            //Debug.Log(indAngle * circlePoints);
+        }
     }
 
 }
