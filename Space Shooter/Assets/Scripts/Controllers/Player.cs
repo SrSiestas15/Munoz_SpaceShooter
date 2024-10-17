@@ -29,6 +29,9 @@ public class Player : MonoBehaviour
     public float numOfPowerups;
     float powerupIndAngle;
 
+    //bullet
+    public GameObject bulletPrefab;
+
 
     public Vector3 velocity;
 
@@ -100,6 +103,11 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P)) 
         {
             SpawnPowerups(powerupRadius, (int)numOfPowerups);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(bulletPrefab,transform.position, Quaternion.identity);
         }
     }
 
