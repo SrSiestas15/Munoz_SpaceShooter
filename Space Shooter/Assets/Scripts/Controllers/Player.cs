@@ -32,18 +32,30 @@ public class Player : MonoBehaviour
     //bullet
     public GameObject bulletPrefab;
 
+    //partner ship
+    public GameObject partnershipPrefab;
+    float partnershipIndAngle;
+    public int numOfPartnerships;
+    public float partnershipRadius;
+    public static Transform shipTransform;
+
+
 
     public Vector3 velocity;
 
     private void Start()
     {
+        shipTransform = transform;
         acceleration = targetSpeed / timeToReachTargetSpeed;
 
         radarIndAngle = 360 / numOfPoints;
-        Debug.Log(radarIndAngle);
+        //Debug.Log(radarIndAngle);
 
         powerupIndAngle = 360 / numOfPowerups;
-        
+        partnershipIndAngle = 360 / numOfPartnerships;
+        SpawnPartnerShip(numOfPartnerships);
+        Debug.Log(Mathf.Atan2(0, 1)*Mathf.Rad2Deg);
+        Debug.Log(Mathf.Atan2(0, -1) * Mathf.Rad2Deg);
     }
 
     void PlayerMovement()
@@ -96,13 +108,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        shipTransform = transform;
         testTimer += Time.deltaTime;
         PlayerMovement();
-        EnemyRadar(radarRadius, (int) numOfPoints);
+        //EnemyRadar(radarRadius, (int) numOfPoints);
         
         if (Input.GetKeyDown(KeyCode.P)) 
         {
-            SpawnPowerups(powerupRadius, (int)numOfPowerups);
+            //SpawnPowerups(powerupRadius, (int)numOfPowerups);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -130,7 +143,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SpawnPowerups(float radius, int numberOfPowerups)
+    /*public void SpawnPowerups(float radius, int numberOfPowerups)
     {
         for (int i = 0; i < numOfPowerups; i++)
         {
@@ -138,6 +151,16 @@ public class Player : MonoBehaviour
             tempRadarPoint1.x = Mathf.Cos(powerupIndAngle * i * Mathf.Deg2Rad);
             tempRadarPoint1.y = Mathf.Sin(powerupIndAngle * i * Mathf.Deg2Rad);
             Instantiate(powerupPrefab, transform.position + tempRadarPoint1 * powerupRadius, Quaternion.identity);
+        }
+    }*/
+
+    public void SpawnPartnerShip(int numOfPartnerships)
+    {
+        for (int i = 0; i < numOfPartnerships; i++)
+        {
+            tempRadarPoint1.x = Mathf.Cos(partnershipIndAngle * i * Mathf.Deg2Rad);
+            tempRadarPoint1.y = Mathf.Sin(partnershipIndAngle * i * Mathf.Deg2Rad);
+            Instantiate(partnershipPrefab, transform.position + tempRadarPoint1 * powerupRadius, Quaternion.identity);
         }
     }
 }

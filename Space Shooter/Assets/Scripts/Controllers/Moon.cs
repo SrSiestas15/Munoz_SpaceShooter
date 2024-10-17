@@ -7,7 +7,7 @@ public class Moon : MonoBehaviour
     public Transform planetTransform;
     public float rotateSpeed;
     public float rotateRadius;
-    public float tempAngle = 0;
+    float tempAngle;
     Vector3 tempMoonPos;
 
 
@@ -31,6 +31,7 @@ public class Moon : MonoBehaviour
         if (tempAngle == 360 / speed)
         {
             tempAngle = 0;
+
         } else tempAngle++;
     }
 }
