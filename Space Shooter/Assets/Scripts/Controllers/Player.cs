@@ -39,6 +39,9 @@ public class Player : MonoBehaviour
     public float partnershipRadius;
     public static Transform shipTransform;
 
+    //missiles
+    public GameObject missilePrefab;
+
 
 
     public Vector3 velocity;
@@ -122,6 +125,11 @@ public class Player : MonoBehaviour
         {
             Instantiate(bulletPrefab,transform.position, Quaternion.identity);
         }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            shootMissile(missilePrefab);
+        }
     }
 
     public void EnemyRadar(float radarRadius, int circlePoints)
@@ -154,7 +162,7 @@ public class Player : MonoBehaviour
         }
     }*/
 
-    public void SpawnPartnerShip(int numOfPartnerships)
+    void SpawnPartnerShip(int numOfPartnerships)
     {
         for (int i = 0; i < numOfPartnerships; i++)
         {
@@ -162,5 +170,10 @@ public class Player : MonoBehaviour
             tempRadarPoint1.y = Mathf.Sin(partnershipIndAngle * i * Mathf.Deg2Rad);
             Instantiate(partnershipPrefab, transform.position + tempRadarPoint1 * powerupRadius, Quaternion.identity);
         }
+    }
+
+    void shootMissile(GameObject missile)
+    {
+        Instantiate(missile, transform.position, Quaternion.identity);
     }
 }
